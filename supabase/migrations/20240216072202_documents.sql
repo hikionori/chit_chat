@@ -3,9 +3,9 @@ create extension vector with schema extensions;
 create table documents (                                  
     id bigint primary key generated always as identity,                   
     name text not null,                                                   
-    created_by uuid not null references auth.users(id) default auth.uid()
+    created_by uuid not null references auth.users(id) default auth.uid(),
     storage_object_id uuid not null references storage.objects(id),       
-    created_at timestamp with time zone default now(),                    
+    created_at timestamp with time zone default now()
 );
 
 create view documents_with_storage_path

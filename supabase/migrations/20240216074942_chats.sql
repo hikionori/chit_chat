@@ -11,8 +11,8 @@ create table chat_message (
     id bigint primary key generated always as identity,
     chat_id bigint not null references chats(id) on delete cascade,
     message_role role not null default 'user',
-    message_text text not null
-    created_at timestamp with time zone default now(),
+    message_text text not null,
+    created_at timestamp with time zone default now()
 );
 
 create table chat_documents (
