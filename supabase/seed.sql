@@ -1,6 +1,6 @@
 select vault.create_secret(
-    "http://api.supabase.internal:8000",
-    "supabase_url",
+    'http://api.supabase.internal:8000',
+    'supabase_url'
 );
 
 create function supabase_url() 
