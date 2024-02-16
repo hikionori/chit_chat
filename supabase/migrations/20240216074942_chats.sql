@@ -1,15 +1,15 @@
 create type role as enum ('user', 'ai');
 
 create table chats (                                  
-    id bigint primary key generated always as identity,                
+    id uuid primary key default uuid_generate_v4(),                
     user_id uuid not null references auth.users(id) default auth.uid(),
     created_at timestamp with time zone default now(),                    
     updated_at timestamp with time zone default now()                 
 );
 
 create table chat_message (
-    id bigint primary key generated always as identity,
-    chat_id bigint not null references chats(id) on delete cascade,
+    id uuid primary key default uuid_generate_v4(),
+    chat_id uuid not null references chats(id) on delete cascade,
     message_role role not null default 'user',
     message_text text not null,
     created_at timestamp with time zone default now()
@@ -17,7 +17,7 @@ create table chat_message (
 
 create table chat_documents (
     id bigint primary key generated always as identity,
-    chat_id bigint not null references chats(id) on delete cascade,
+    chat_id uuid not null references chats(id) on delete cascade,
     document_id bigint not null references documents(id) on delete cascade
 );
 
