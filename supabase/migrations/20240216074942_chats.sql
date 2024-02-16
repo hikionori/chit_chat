@@ -1,8 +1,9 @@
 create type role as enum ('user', 'ai');
 
 create table chats (                                  
-    id uuid primary key default uuid_generate_v4(),                
+    id uuid primary key default uuid_generate_v4(),     
     user_id uuid not null references auth.users(id) default auth.uid(),
+    title text not null,
     created_at timestamp with time zone default now(),                    
     updated_at timestamp with time zone default now()                 
 );
