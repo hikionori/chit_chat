@@ -27,3 +27,68 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/
+    - assets/images/
+    - assets/fonts/
+
+  fonts:
+    - family: FixelDisplay
+      fonts:
+        # Black
+        - asset: assets/fonts/FixelDisplay-Black.otf
+          weight: 900
+        # Bold
+        - asset: assets/fonts/FixelDisplay-Bold.otf
+          weight: 700
+        # ExtraBold
+        - asset: assets/fonts/FixelDisplay-ExtraBold.otf
+          weight: 800
+        # ExtraLight
+        - asset: assets/fonts/FixelDisplay-ExtraLight.otf
+          weight: 200
+        # Light
+        - asset: assets/fonts/FixelDisplay-Light.otf
+          weight: 300
+        # Medium
+        - asset: assets/fonts/FixelDisplay-Medium.otf
+          weight: 500
+        # Regular
+        - asset: assets/fonts/FixelDisplay-Regular.otf
+          weight: 400
+        # SemiBold
+        - asset: assets/fonts/FixelDisplay-SemiBold.otf
+          weight: 600
+        # Thin
+        - asset: assets/fonts/FixelDisplay-Thin.otf
+          weight: 100
+    - family: FixelText
+      fonts:
+        # Black
+        - asset: assets/fonts/FixelText-Black.otf
+          weight: 900
+        # Bold
+        - asset: assets/fonts/FixelText-Bold.otf
+          weight: 700
+        # ExtraBold
+        - asset: assets/fonts/FixelText-ExtraBold.otf
+          weight: 800
+        # ExtraLight
+        - asset: assets/fonts/FixelText-ExtraLight.otf
+          weight: 200
+        # Light
+        - asset: assets/fonts/FixelText-Light.otf
+          weight: 300
+        # Medium
+        - asset: assets/fonts/FixelText-Medium.otf
+          weight: 500
+        # Regular
+        - asset: assets/fonts/FixelText-Regular.otf
+          weight: 400
+        # SemiBold
+        - asset: assets/fonts/FixelText-SemiBold.otf
+          weight: 600
+        # Thin
+        - asset: assets/fonts/FixelText-Thin.otf
+          weight: 100
