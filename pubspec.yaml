@@ -16,7 +16,7 @@ dependencies:
   flutter_bloc: ^8.1.4
   equatable: ^2.0.3
   hydrated_bloc: ^9.1.4
-  solar_icons: ^0.0.5
+  font_awesome_flutter: ^10.7.0
 
   cupertino_icons: ^1.0.2
 
@@ -38,58 +38,58 @@ flutter:
     - family: FixelDisplay
       fonts:
         # Black
-        - asset: assets/fonts/FixelDisplay-Black.otf
+        - asset: assets/fonts/FixelDisplay/FixelDisplay-Black.otf
           weight: 900
         # Bold
-        - asset: assets/fonts/FixelDisplay-Bold.otf
+        - asset: assets/fonts/FixelDisplay/FixelDisplay-Bold.otf
           weight: 700
         # ExtraBold
-        - asset: assets/fonts/FixelDisplay-ExtraBold.otf
+        - asset: assets/fonts/FixelDisplay/FixelDisplay-ExtraBold.otf
           weight: 800
         # ExtraLight
-        - asset: assets/fonts/FixelDisplay-ExtraLight.otf
+        - asset: assets/fonts/FixelDisplay/FixelDisplay-ExtraLight.otf
           weight: 200
         # Light
-        - asset: assets/fonts/FixelDisplay-Light.otf
+        - asset: assets/fonts/FixelDisplay/FixelDisplay-Light.otf
           weight: 300
         # Medium
-        - asset: assets/fonts/FixelDisplay-Medium.otf
+        - asset: assets/fonts/FixelDisplay/FixelDisplay-Medium.otf
           weight: 500
         # Regular
-        - asset: assets/fonts/FixelDisplay-Regular.otf
+        - asset: assets/fonts/FixelDisplay/FixelDisplay-Regular.otf
           weight: 400
         # SemiBold
-        - asset: assets/fonts/FixelDisplay-SemiBold.otf
+        - asset: assets/fonts/FixelDisplay/FixelDisplay-SemiBold.otf
           weight: 600
         # Thin
-        - asset: assets/fonts/FixelDisplay-Thin.otf
+        - asset: assets/fonts/FixelDisplay/FixelDisplay-Thin.otf
           weight: 100
     - family: FixelText
       fonts:
         # Black
-        - asset: assets/fonts/FixelText-Black.otf
+        - asset: assets/fonts/FixelText/FixelText-Black.otf
           weight: 900
         # Bold
-        - asset: assets/fonts/FixelText-Bold.otf
+        - asset: assets/fonts/FixelText/FixelText-Bold.otf
           weight: 700
         # ExtraBold
-        - asset: assets/fonts/FixelText-ExtraBold.otf
+        - asset: assets/fonts/FixelText/FixelText-ExtraBold.otf
           weight: 800
         # ExtraLight
-        - asset: assets/fonts/FixelText-ExtraLight.otf
+        - asset: assets/fonts/FixelText/FixelText-ExtraLight.otf
           weight: 200
         # Light
-        - asset: assets/fonts/FixelText-Light.otf
+        - asset: assets/fonts/FixelText/FixelText-Light.otf
           weight: 300
         # Medium
-        - asset: assets/fonts/FixelText-Medium.otf
+        - asset: assets/fonts/FixelText/FixelText-Medium.otf
           weight: 500
         # Regular
-        - asset: assets/fonts/FixelText-Regular.otf
+        - asset: assets/fonts/FixelText/FixelText-Regular.otf
           weight: 400
         # SemiBold
-        - asset: assets/fonts/FixelText-SemiBold.otf
+        - asset: assets/fonts/FixelText/FixelText-SemiBold.otf
           weight: 600
         # Thin
-        - asset: assets/fonts/FixelText-Thin.otf
+        - asset: assets/fonts/FixelText/FixelText-Thin.otf
           weight: 100

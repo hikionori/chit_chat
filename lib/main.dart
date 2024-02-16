@@ -1,5 +1,6 @@
 import 'package:chit_chat/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.dark,
       theme: materialTheme.theme(const ColorScheme.light()),
       darkTheme: materialTheme.theme(const ColorScheme.dark()),
       debugShowCheckedModeBanner: false,
@@ -52,6 +53,11 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             const Text(
               'You have pushed the button this many times:',
+            ),
+            FaIcon(
+              FontAwesomeIcons.solidFilePdf,
+              size: 100,
+              color: Theme.of(context).colorScheme.primary,
             ),
             Text(
               '$_counter',
