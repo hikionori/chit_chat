@@ -1,4 +1,6 @@
 // ignore_for_file: use_full_hex_values_for_flutter_colors
+import "dart:ui";
+
 import "package:flutter/material.dart";
 
 class MaterialTheme {
@@ -553,4 +555,26 @@ class ColorFamily {
   final Color onColorContainer;
 }
 
-const MaterialTheme materialTheme = MaterialTheme(TextTheme());
+const MaterialTheme materialTheme = MaterialTheme(TextTheme(
+  displaySmall: TextStyle(
+    fontFamily: "FixelDisplay",
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    letterSpacing: 0.5,
+    height: 1.5,
+  ),
+  displayMedium: TextStyle(
+    fontFamily: "FixelDisplay",
+    fontSize: 20,
+    fontWeight: FontWeight.w400,
+    letterSpacing: 0.5,
+    height: 1.5,
+  ),
+  displayLarge: TextStyle(
+      fontFamily: "FixelDisplay",
+      fontSize: 36,
+      fontWeight: FontWeight.bold,
+      letterSpacing: 0.5,
+      height: 1.5,
+      fontFeatures: [FontFeature("ss01")]),
+));
