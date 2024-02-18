@@ -1,14 +1,15 @@
 {
+  "[typescript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "cSpell.words": [
+    "langchain",
+    "openai"
+  ],
   "deno.enablePaths": [
     "supabase/functions"
   ],
   "deno.lint": true,
   "deno.unstable": true,
-  "[typescript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
-  },
-  "cSpell.words": [
-    "langchain",
-    "openai"
-  ]
+  "deno.enable": true
 }
