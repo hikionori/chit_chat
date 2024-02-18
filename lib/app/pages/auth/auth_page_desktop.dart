@@ -1,4 +1,4 @@
-import 'package:chit_chat/app/widgets/desktop_input_field.dart';
+import 'package:chit_chat/app/widgets/input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -22,17 +22,18 @@ class _AuthPageDesktopState extends State<AuthPageDesktop> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset('assets/images/big_logo.png', height: 243, width: 243),
             Text("ChitChat", style: Theme.of(context).textTheme.displayLarge),
             // text field for email
-            DesktopInputField(
+            InputField(
                 controller: _emailController,
                 hintText: 'Email',
                 inputType: TextInputType.emailAddress),
             const SizedBox(height: 23),
             // text field for password
-            DesktopInputField(
+            InputField(
                 controller: _passwordController,
                 hintText: 'Password',
                 inputType: TextInputType.visiblePassword),

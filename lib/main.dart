@@ -10,14 +10,14 @@ void main() async {
 
   // initialize Supabase
   await Supabase.initialize(
-    url: "http://127.0.0.1:54321",
+    url: "https://t82zk15t-54321.euw.devtunnels.ms/",
     anonKey:
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0",
   );
 
-  await windowManager.ensureInitialized();
 
   if (Platform.isLinux || Platform.isWindows || Platform.isMacOS) {
+  await windowManager.ensureInitialized();
     // set up window
     await windowManager.waitUntilReadyToShow(null, () async {
       // set title
