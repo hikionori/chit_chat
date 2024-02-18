@@ -2,17 +2,11 @@ import 'dart:io';
 
 import 'package:chit_chat/app/app.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  dotenv.load(fileName: ".env.local");
-
-  print(
-    "SUPABASE_API_URL: ${const String.fromEnvironment("SUPABASE_API_URL")}",
-  );
 
   // initialize Supabase
   await Supabase.initialize(
