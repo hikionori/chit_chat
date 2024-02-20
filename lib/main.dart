@@ -5,6 +5,24 @@ import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+// void send_form_data() async {
+//   var url = "https://t82zk15t-54321.euw.devtunnels.ms/functions/v1/upload";
+//   var formData = FormData();
+//   formData.files.add(MapEntry(
+//     "file",
+//     await MultipartFile.fromFile(
+//       "path/to/file",
+//       filename: "file",
+//     ),
+//   ));
+
+//   var response = await Dio().post(
+//     url,
+//     data: formData,
+//   );
+//   print(response);
+// }
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -15,9 +33,8 @@ void main() async {
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0",
   );
 
-
   if (Platform.isLinux || Platform.isWindows || Platform.isMacOS) {
-  await windowManager.ensureInitialized();
+    await windowManager.ensureInitialized();
     // set up window
     await windowManager.waitUntilReadyToShow(null, () async {
       // set title
