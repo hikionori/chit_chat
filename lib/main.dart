@@ -5,22 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-// void send_form_data() async {
-//   var url = "https://t82zk15t-54321.euw.devtunnels.ms/functions/v1/upload";
-//   var formData = FormData();
-//   formData.files.add(MapEntry(
-//     "file",
-//     await MultipartFile.fromFile(
-//       "path/to/file",
-//       filename: "file",
-//     ),
-//   ));
+// void send_form_data_http() async {
+//   var request = http.MultipartRequest(
+//       'POST',
+//       Uri.parse(
+//           'https://t82zk15t-54321.euw.devtunnels.ms/functions/v1/upload'));
+//   request.files.add(await http.MultipartFile.fromPath(
+//       'file', '/home/hikionori/Documents/Projects/chit_chat/pubspec.yaml'));
+//   for (var file in request.files) {
+//     print(file.field);
+//     print(file.filename);
+//     print(file.length);
 
-//   var response = await Dio().post(
-//     url,
-//     data: formData,
-//   );
-//   print(response);
+//   }
 // }
 
 void main() async {
