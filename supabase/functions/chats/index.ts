@@ -3,6 +3,7 @@
 // This enables autocomplete, go to definition, etc.
 
 import { createClient } from "npm:@supabase/supabase-js";
+import { multiParser } from "https://deno.land/x/multiparser@0.114.0/mod.ts";
 
 Deno.serve(async (req) => {
   if (req.method == "OPTIONS") {
@@ -13,37 +14,55 @@ Deno.serve(async (req) => {
       {
         headers: {
           "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "GET, POST, OPTIONS, DELETE",
-          "Access-Control-Allow-Headers": "Authorization, Content-Type",
         },
       },
     );
   }
 
-  if (req.method === "GET") {
+  if (req.method === "POST") {
     // return list of chats
-    const supabaseUrl = Deno.env.get("SUPABASE_URL");
-    const supabaseKey = Deno.env.get("SUPABASE_ANON_KEY");
-    const supabase = createClient(supabaseUrl!, supabaseKey!);
 
-    const { data, error } = await supabase.from("chats").select("*").eq(
-      "user_id",
-      await req.json().then((body) => body.user_id),
-    );
-    if (error) {
+    try {
+      const supabaseClient = createClient(
+        Deno.env.get("SUPABASE_URL") ?? "",
+        Deno.env.get("SUPABASE_ANON_KEY") ?? "",
+        {
+          global: {
+            headers: { Authorization: req.headers.get("Authorization") ?? "" },
+          },
+        },
+      );
+
+      const body = await req.json();
+      console.log("Body: ", body);
+
+      const { data, error } = await supabaseClient.from("chats").select("*");
+
+      if (error) {
+        console.error("Error: ", error);
+        return new Response(
+          JSON.stringify({
+            message: "Error fetching chats",
+          }),
+          { headers: { "Content-Type": "application/json" } },
+        );
+      }
+
+      console.log("Data: ", data);
+
+      return new Response(
+        JSON.stringify(data),
+        { headers: { "Content-Type": "application/json" } },
+      );
+    } catch (error) {
+      console.error("Error: ", error);
       return new Response(
         JSON.stringify({
           message: "Error fetching chats",
-          error: error.message,
         }),
-        { status: 500 },
+        { headers: { "Content-Type": "application/json" } },
       );
     }
-
-    return new Response(
-      JSON.stringify(data),
-      { headers: { "Content-Type": "application/json" } },
-    );
   }
 
   return new Response(

@@ -1,5 +1,6 @@
 import 'package:chit_chat/app/blocs/cubit/theme_cubit.dart';
 import 'package:chit_chat/app/models/message.dart';
+import 'package:chit_chat/app/services/chat_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -14,23 +15,19 @@ class HomePageDesktop extends StatefulWidget {
 }
 
 class _HomePageDesktopState extends State<HomePageDesktop> {
-  List<Message> messages = [
-    Message(
-      text: 'Hello, how can I help you?',
-      sender: 'ai',
-      time: '10:00',
-    ),
-    Message(
-      text: 'I need help with my account',
-      sender: 'user',
-      time: '10:01',
-    ),
-    Message(
-      text: 'Sure, what do you need help with?',
-      sender: 'ai',
-      time: '10:02',
-    ),
-  ];
+  final ChatService chatService = ChatService();
+  final chats = [];
+
+
+  @override
+  void initState() {
+    super.initState();
+    chatService.getChats().then((value) {
+      setState(() {
+        chats.addAll(value);
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,31 +121,52 @@ class _HomePageDesktopState extends State<HomePageDesktop> {
                       right: 0,
                       bottom: 140,
                       child: SizedBox(
-                        width: 270,
-                        height: MediaQuery.of(context).size.height - 130,
-                        child: ListView.builder(
-                          itemCount: 10,
-                          itemBuilder: (context, index) {
-                            return SizedBox(
-                              key: ValueKey(index),
-                              width: 270,
-                              height: 60,
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text("Chat $index"),
-                                    const FaIcon(FontAwesomeIcons.gear)
-                                  ],
+                          width: 270,
+                          height: MediaQuery.of(context).size.height - 130,
+                          // child: ListView.builder(
+                          //   itemCount: 10,
+                          //   itemBuilder: (context, index) {
+                          //     return SizedBox(
+                          //       key: ValueKey(index),
+                          //       width: 270,
+                          //       height: 60,
+                          //       child: Padding(
+                          //         padding:
+                          //             const EdgeInsets.symmetric(horizontal: 20),
+                          //         child: Row(
+                          //           mainAxisAlignment:
+                          //               MainAxisAlignment.spaceBetween,
+                          //           children: [
+                          //             Text("Chat $index"),
+                          //             const FaIcon(FontAwesomeIcons.gear)
+                          //           ],
+                          //         ),
+                          //       ),
+                          //     );
+                          //   },
+                          // ),
+                          child: ListView.builder(
+                            itemCount: chats.length,
+                            itemBuilder: (context, index) {
+                              return SizedBox(
+                                key: ValueKey(index),
+                                width: 270,
+                                height: 60,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(chats[index].chatName),
+                                      const FaIcon(FontAwesomeIcons.gear)
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
-                        ),
-                      )),
+                              );
+                            },
+                          ))),
 
                   // buttons for logout and change theme
                   Positioned(
@@ -426,5 +444,3 @@ class _HomePageDesktopState extends State<HomePageDesktop> {
     );
   }
 }
-
-
