@@ -2,7 +2,7 @@
 // https://deno.land/manual/getting_started/setup_your_environment
 // This enables autocomplete, go to definition, etc.
 
-import { OpenAIEmbeddings } from "npm:@langchain/openai";
+// import { OpenAIEmbeddings } from "npm:@langchain/openai";
 
 console.log("Hello from Functions!");
 

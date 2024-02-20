@@ -1,4 +1,5 @@
 import 'package:chit_chat/app/blocs/cubit/theme_cubit.dart';
+import 'package:chit_chat/app/models/message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -128,11 +129,21 @@ class _HomePageDesktopState extends State<HomePageDesktop> {
                         child: ListView.builder(
                           itemCount: 10,
                           itemBuilder: (context, index) {
-                            return ListTile(
-                              title: Text('Chat $index'),
-                              subtitle: Text('Last message'),
-                              leading: CircleAvatar(
-                                child: Text('A'),
+                            return SizedBox(
+                              key: ValueKey(index),
+                              width: 270,
+                              height: 60,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text("Chat $index"),
+                                    const FaIcon(FontAwesomeIcons.gear)
+                                  ],
+                                ),
                               ),
                             );
                           },
@@ -416,14 +427,4 @@ class _HomePageDesktopState extends State<HomePageDesktop> {
   }
 }
 
-class Message {
-  final String text;
-  final String sender;
-  final String time;
 
-  Message({
-    required this.text,
-    required this.sender,
-    required this.time,
-  });
-}
