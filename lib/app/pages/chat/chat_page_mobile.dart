@@ -4,14 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class HomePageMobile extends StatefulWidget {
-  const HomePageMobile({super.key});
+class ChatPageMobile extends StatefulWidget {
+  const ChatPageMobile({super.key});
 
   @override
-  State<HomePageMobile> createState() => _HomePageMobileState();
+  State<ChatPageMobile> createState() => _ChatPageMobileState();
 }
 
-class _HomePageMobileState extends State<HomePageMobile> {
+class _ChatPageMobileState extends State<ChatPageMobile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

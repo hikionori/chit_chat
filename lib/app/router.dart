@@ -1,5 +1,5 @@
 import 'package:chit_chat/app/layouts/auth_layout.dart';
-import 'package:chit_chat/app/layouts/home_layout.dart';
+import 'package:chit_chat/app/layouts/chat_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -19,7 +19,7 @@ final router = GoRouter(
     GoRoute(
       path: '/',
       pageBuilder: (context, state) =>
-          const MaterialPage(child: HomePageLayout()),
+          const MaterialPage(child: ChatPageLayout()),
       routes: [
         GoRoute(
           path: 'auth',
