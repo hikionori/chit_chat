@@ -385,9 +385,9 @@ class _ChatPageDesktopState extends State<ChatPageDesktop> {
                                 setState(() {
                                   _textController.clear();
                                   // scroll to the bottom of the list of messages
-                                  _scrollController.jumpTo(_scrollController
-                                          .position.maxScrollExtent +
-                                      200);
+                                  // _scrollController.jumpTo(_scrollController
+                                  //         .position.maxScrollExtent +
+                                  //     200);
                                 });
                               },
                               child: Container(

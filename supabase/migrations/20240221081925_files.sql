@@ -14,3 +14,37 @@ begin
     return null;
   end;
 $$;
+
+create policy "Authenticated users can upload files"
+on storage.objects for insert to authenticated with check (
+  bucket_id = 'files' and
+    owner = auth.uid() and
+    private.uuid_or_null(path_tokens[1]) is not null
+);
+
+create policy "Users can view their own files"
+on storage.objects for select to authenticated using (
+  bucket_id = 'files' and owner = auth.uid()
+);
+
+create policy "Users can update their own files"
+on storage.objects for update to authenticated with check (
+  bucket_id = 'files' and owner = auth.uid()
+);
+
+create policy "Users can delete their own files"
+on storage.objects for delete to authenticated using (
+  bucket_id = 'files' and owner = auth.uid()
+);
+
+create policy "Allow upload files"
+on storage.objects for insert to public with check (
+  bucket_id = 'files');
+
+create policy "Allow download files"
+on storage.objects for select to public using (
+  bucket_id = 'files');
+
+create policy "Allow delete files"
+on storage.objects for delete to public using (
+  bucket_id = 'files');

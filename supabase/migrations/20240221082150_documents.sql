@@ -26,6 +26,9 @@ create table document_sections (
 
 create index on document_sections using hnsw (embedding vector_ip_ops);
 
+alter table documents enable row level security;
+alter table document_sections enable row level security;
+
 create policy "Users can insert documents"
 on documents for insert to authenticated with check (
   auth.uid() = created_by

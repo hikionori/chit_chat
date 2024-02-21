@@ -3,15 +3,11 @@
 // This enables autocomplete, go to definition, etc.
 
 import { createClient } from "npm:@supabase/supabase-js";
+import { getDocument } from "npm:pdfjs-dist";
 import { OpenAIEmbeddings } from "npm:@langchain/openai";
 
-import { getDocument } from "npm:pdfjs-dist";
-
-// const supabaseUrl = Deno.env.get("SUPABASE_URL");
-const supabaseUrl = "https://vcztinjjbyfnhuyuztyn.supabase.co";
-// const supabaseKey = Deno.env.get("SUPABASE_ANON_KEY");
-const supabaseKey =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZjenRpbmpqYnlmbmh1eXV6dHluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDg1MDcxMzgsImV4cCI6MjAyNDA4MzEzOH0.MOIqpk7k4uRSn7Mf4zbRCyky6o-cCOBnkrbpiK74ka0";
+const supabaseUrl = Deno.env.get("SUPABASE_URL");
+const supabaseKey = Deno.env.get("SUPABASE_ANON_KEY");
 
 Deno.serve(async (req) => {
   if (!supabaseUrl || !supabaseKey) {
@@ -70,11 +66,13 @@ Deno.serve(async (req) => {
 
   const processedPdf = await processPdf(arrayBuffer);
 
+  console.log(processedPdf[0].content.toString());
+
   const { error } = await supabase.from("document_sections").insert(
     processedPdf.map(({ content, embedding }) => ({
       document_id,
       content,
-      embedding,
+      embedding: embedding,
     })),
   );
 
@@ -100,7 +98,7 @@ async function processPdf(arrayBuffer: ArrayBuffer) {
   for (let i = 1; i <= pdf.numPages; i++) {
     const page = await pdf.getPage(i);
     const textContent = await page.getTextContent();
-    pages.push(textContent.items.map((item) => item).join(""));
+    pages.push(textContent.items.map((item) => item.str).join(""));
   }
 
   const embeddingsModel = new OpenAIEmbeddings({

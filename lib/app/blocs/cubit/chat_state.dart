@@ -9,7 +9,9 @@ sealed class ChatState extends Equatable {
 
 final class ChatInitial extends ChatState {
   final messages = <Message>[
-    Message(role: "system", content: "You are useful chat bot")
+    Message(
+        role: "system",
+        content: "You are useful chat bot. Your name ChitChatik")
   ];
 
   @override

@@ -4,6 +4,13 @@
 
 // console.log("Hello from Functions!");
 
+import { OpenAIEmbeddings } from "npm:@langchain/openai";
+import { createClient } from "npm:@supabase/supabase-js";
+import { OpenAI } from "npm:openai";
+
+const supabaseUrl = Deno.env.get("SUPABASE_URL");
+const supabaseKey = Deno.env.get("SUPABASE_ANON_KEY");
+
 Deno.serve(async (req) => {
   const { messages }: {
     messages: {
@@ -12,24 +19,82 @@ Deno.serve(async (req) => {
     }[];
   } = await req.json();
 
-  // get last message
+  const openai = new OpenAI({
+    apiKey: Deno.env.get("OPENAI_API_KEY"),
+  });
+
+  const authorization = req.headers.get("Authorization");
+
+  if (!authorization) {
+    return new Response(
+      JSON.stringify({ error: "Authorization header is required" }),
+      { status: 400, headers: { "Content-Type": "application/json" } },
+    );
+  }
+
+  const supabase = createClient(supabaseUrl!, supabaseKey!, {
+    global: {
+      headers: {
+        authorization,
+      },
+    },
+    auth: {
+      persistSession: false,
+    },
+  });
+
   const lastMessage = messages[messages.length - 1];
-  // create embedding
+
+  const embedder = new OpenAIEmbeddings({
+    openAIApiKey: Deno.env.get("OPENAI_API_KEY"),
+    modelName: "text-embedding-3-large",
+    dimensions: 512,
+  });
+  const embedding = await embedder.embedQuery(lastMessage.content);
+
   // match documents with this embedding
-  // return the most similar document
-  // send message to openai
+  const { data: documents, error } = await supabase.rpc(
+    "match_document_sections",
+    {
+      embedding: embedding,
+      match_threshold: 0.5,
+    },
+  ).select("content")
+    .limit(5);
 
-  // openai template
-  // - get last message content
-  // - add documents content
-  // send message to openai
+  if (error) {
+    return new Response(
+      JSON.stringify({ error: error.message }),
+      { status: 500 },
+    );
+  }
 
-  // return response message
+  const injectedDocs = documents && documents.length > 0
+    ? documents.map(({ content }) => content).join("\n\n")
+    : "";
+
+  const newLastMessage = {
+    role: "user",
+    content: `
+    Answer to my question: ${lastMessage.content}
+
+    Using this documents:
+    ${injectedDocs}
+    `,
+  };
+
+  const newMessages = messages.slice(0, -1);
+  newMessages.push(newLastMessage);
+
+  const completion = await openai.chat.completions.create({
+    messages: [...newMessages],
+    model: "gpt-3.5-turbo",
+  });
 
   return new Response(
     JSON.stringify({
       role: "assistant",
-      content: lastMessage.content,
+      content: completion.choices[0].message.content,
     }),
     { headers: { "Content-Type": "application/json" } },
   );
