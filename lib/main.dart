@@ -10,10 +10,12 @@ void main() async {
 
   // initialize Supabase
   await Supabase.initialize(
-    url: "https://t82zk15t-54321.euw.devtunnels.ms/",
-    anonKey:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0",
-  );
+      // url: "https://t82zk15t-54321.euw.devtunnels.ms/",
+      // anonKey:
+      //     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0",
+      url: "https://vcztinjjbyfnhuyuztyn.supabase.co",
+      anonKey:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZjenRpbmpqYnlmbmh1eXV6dHluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDg1MDcxMzgsImV4cCI6MjAyNDA4MzEzOH0.MOIqpk7k4uRSn7Mf4zbRCyky6o-cCOBnkrbpiK74ka0");
 
   if (Platform.isLinux || Platform.isWindows || Platform.isMacOS) {
     await windowManager.ensureInitialized();

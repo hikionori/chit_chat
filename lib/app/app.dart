@@ -1,3 +1,4 @@
+import 'package:chit_chat/app/blocs/cubit/chat_cubit.dart';
 import 'package:chit_chat/app/blocs/cubit/theme_cubit.dart';
 import 'package:chit_chat/app/router.dart';
 import 'package:chit_chat/app/theme/theme.dart';
@@ -12,6 +13,9 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => ThemeCubit()),
+        BlocProvider(
+          create: (context) => ChatCubit(),
+        )
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, state) {
