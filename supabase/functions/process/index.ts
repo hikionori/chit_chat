@@ -66,8 +66,6 @@ Deno.serve(async (req) => {
 
   const processedPdf = await processPdf(arrayBuffer);
 
-  console.log(processedPdf[0].content.toString());
-
   const { error } = await supabase.from("document_sections").insert(
     processedPdf.map(({ content, embedding }) => ({
       document_id,
