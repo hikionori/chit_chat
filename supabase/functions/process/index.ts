@@ -63,8 +63,12 @@ Deno.serve(async (req) => {
   }
 
   const arrayBuffer = await file.arrayBuffer();
+const pdf = await getDocument(arrayBuffer).promise;
 
-  const processedPdf = await processPdf(arrayBuffer);
+const pageSize = 50;
+for (let i = 1; i <= pdf.numPages; i += pageSize) {
+  const endPage = Math.min(i + pageSize - 1, pdf.numPages);
+  const processedPdf = await processPdf(arrayBuffer, i, endPage);
 
   const { error } = await supabase.from("document_sections").insert(
     processedPdf.map(({ content, embedding }) => ({
@@ -80,6 +84,7 @@ Deno.serve(async (req) => {
       { status: 500, headers: { "Content-Type": "application/json" } },
     );
   }
+}
 
   return new Response(
     null,
@@ -87,17 +92,8 @@ Deno.serve(async (req) => {
   );
 });
 
-async function processPdf(arrayBuffer: ArrayBuffer) {
+async function processPdf(arrayBuffer: ArrayBuffer, startPage: number, endPage: number) {
   const pdf = await getDocument(arrayBuffer).promise;
-
-  const pages = [];
-  const sections = [];
-
-  for (let i = 1; i <= pdf.numPages; i++) {
-    const page = await pdf.getPage(i);
-    const textContent = await page.getTextContent();
-    pages.push(textContent.items.map((item) => item.str).join(""));
-  }
 
   const embeddingsModel = new OpenAIEmbeddings({
     openAIApiKey: Deno.env.get("OPENAI_API_KEY"),
@@ -105,9 +101,11 @@ async function processPdf(arrayBuffer: ArrayBuffer) {
     dimensions: 512,
   });
 
-  // for each page in the PDF, extract the text and send it to OpenAI for processing
-  for (const page of pages) {
-    const pageText = await page;
+  const processPage = async (pageNum: number) => {
+    const page = await pdf.getPage(pageNum);
+    const textContent = await page.getTextContent();
+    const pageText = textContent.items.map((item) => item.str).join(" ");
+
     // split the page into sections by character count
     const sectionLength = 1000;
     const sectionOverlap = 200;
@@ -121,16 +119,20 @@ async function processPdf(arrayBuffer: ArrayBuffer) {
       pageSections,
     );
 
-    // push map with section content and embeddings to sections array
-    sections.push(
-      ...sectionEmbeddings.map((embedding, index) => ({
-        content: pageSections[index],
-        embedding,
-      })),
-    );
-  }
+    // return map with section content and embeddings
+    return sectionEmbeddings.map((embedding, index) => ({
+      content: pageSections[index],
+      embedding,
+    }));
+  };
 
-  return sections;
+  // process the specified range of pages in parallel
+  const sections = await Promise.all(
+    Array.from({ length: endPage - startPage + 1 }, (_, i) => processPage(startPage + i)),
+  );
+
+  // flatten the array of arrays
+  return sections.flat();
 }
 /* To invoke locally:
 

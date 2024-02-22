@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:chit_chat/app/blocs/cubit/chat_cubit.dart';
 import 'package:chit_chat/app/blocs/cubit/theme_cubit.dart';
-import 'package:chit_chat/app/router.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
