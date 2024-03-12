@@ -106,7 +106,6 @@ async function processPdf(arrayBuffer: ArrayBuffer, startPage: number, endPage: 
     const textContent = await page.getTextContent();
     const pageText = textContent.items.map((item) => item.str).join(" ");
 
-    // split the page into sections by character count
     const sectionLength = 1000;
     const sectionOverlap = 200;
     const pageSections: string[] = [];
@@ -114,24 +113,20 @@ async function processPdf(arrayBuffer: ArrayBuffer, startPage: number, endPage: 
       pageSections.push(pageText.slice(i, i + sectionLength));
     }
 
-    // send the sections to OpenAI for processing
     const sectionEmbeddings = await embeddingsModel.embedDocuments(
       pageSections,
     );
 
-    // return map with section content and embeddings
     return sectionEmbeddings.map((embedding, index) => ({
       content: pageSections[index],
       embedding,
     }));
   };
 
-  // process the specified range of pages in parallel
   const sections = await Promise.all(
     Array.from({ length: endPage - startPage + 1 }, (_, i) => processPage(startPage + i)),
   );
 
-  // flatten the array of arrays
   return sections.flat();
 }
 /* To invoke locally:
